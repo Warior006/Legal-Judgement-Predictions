@@ -1,0 +1,77 @@
+Open Project in VS Code
+Start by opening the project folder so VS Code knows where your files are.
+
+Launch VS Code
+
+Go to File → Open Folder
+
+Select Legal_Judgment_Prediction_System
+
+02
+Create and Activate Virtual Environment
+Important
+A virtual environment keeps all dependencies isolated for this project.
+
+Run in VS Code terminal
+
+python -m venv .venv
+
+Windows: .venv\Scripts\Activate.ps1
+
+Linux/Mac: source .venv/bin/activate
+
+03
+Install All Dependencies
+Install every required library so you don’t hit missing module errors.
+
+pip install --upgrade pip
+
+pip install -r requirements.txt
+
+If any error persists: pip install pandas loguru fastapi uvicorn streamlit scikit-learn faiss-cpu
+
+04
+Import Dataset
+Load your dataset into the system for training.
+
+Run in VS Code terminal
+
+python scripts/import_new_dataset.py "C:\Users\sanas\OneDrive\MSC IT question paper and study materials\Main Project(1)\Legal_Judgment_Prediction_System\data\case.csv.xlsx"
+
+05
+Build Index and Train Models
+Preprocess text, generate embeddings, and train the classifier.
+
+Run in VS Code terminal
+
+python scripts/build_index.py --force
+
+Wait until metrics are printed (accuracy, F1, etc.)
+
+06
+Start Backend (FastAPI)
+Run the API server to handle predictions.
+
+Run in VS Code terminal
+
+uvicorn api.main:app --reload
+
+Check at http://localhost:8000/docs
+
+07
+Start Frontend (Streamlit)
+Launch the user interface to interact with the system.
+
+Run in a new VS Code terminal
+
+streamlit run frontend/app.py
+
+Open http://localhost:8501 in your browser
+
+08
+Test Predictions
+Verify the system works end‑to‑end.
+
+Use the UI to paste case text
+
+Or run API test: curl -X POST http://localhost:8000/predict -H "Content-Type: application/json" -d "{\"case_text\":\"The defendant...\"}"
